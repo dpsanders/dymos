@@ -1,0 +1,2635 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.0.6">
+    
+    
+      
+        <title>The Brachistochrone with Externally-Sourced initial state values - Dymos</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2c0c5eaf.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.7fa14f5b.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#546d78">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-brachistochrone-with-externally-sourced-initial-state-values" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Dymos" class="md-header__button md-logo" aria-label="Dymos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Dymos
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              The Brachistochrone with Externally-Sourced initial state values
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="md-header__options">
+      
+    </div>
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Dymos" class="md-nav__button md-logo" aria-label="Dymos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Dymos
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation.html" class="md-nav__link">
+        Installation
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        Getting Started
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/collocation.html" class="md-nav__link">
+        What is collocation?
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/optimal_control.html" class="md-nav__link">
+        Optimal Control
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/defining_odes.html" class="md-nav__link">
+        Defining ODEs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/intro_to_dymos/intro_ivp.html" class="md-nav__link">
+        Modeling Dynamic Systems with Dymos
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/intro_to_dymos/intro_segments.html" class="md-nav__link">
+        Segments of Phases
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Examples and Tutorials
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Examples and Tutorials" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Examples and Tutorials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples.html" class="md-nav__link">
+        Dymos by Example
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      <label class="md-nav__link" for="__nav_4_2">
+        Example Problems
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Example Problems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Example Problems
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="brachistochrone.html" class="md-nav__link">
+        The Brachistochrone
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vanderpol/vanderpol.html" class="md-nav__link">
+        The Van der Pol Oscillator
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../balanced_field/balanced_field.html" class="md-nav__link">
+        Aircraft Balanced Field Length Calculation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commercial_aircraft/commercial_aircraft.html" class="md-nav__link">
+        Commercial Aircraft Range Maximization by Differential Inclusion
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../double_integrator/double_integrator.html" class="md-nav__link">
+        Double Integrator
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hypersensitive/hypersensitive.html" class="md-nav__link">
+        Hyper-Sensitive Problem
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../finite_burn_orbit_raise/finite_burn_orbit_raise.html" class="md-nav__link">
+        Two-Burn Orbit Raise
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../length_constrained_brachistochrone/length_constrained_brachistochrone.html" class="md-nav__link">
+        The Length-Constrained Brachistochrone
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../min_time_climb/min_time_climb.html" class="md-nav__link">
+        Supersonic Interceptor Minimum Time Climb
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multi_phase_cannonball/multi_phase_cannonball.html" class="md-nav__link">
+        Multi-Phase Cannonball
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multibranch_trajectory/multibranch_trajectory.html" class="md-nav__link">
+        Multibranch Trajectory
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../racecar/racecar.html" class="md-nav__link">
+        Race car Lap Simulation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reentry/reentry.html" class="md-nav__link">
+        Single-Phase Space Shuttle Reentry
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssto_earth/ssto_earth.html" class="md-nav__link">
+        SSTO Earth Launch
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssto_moon_linear_tangent/ssto_moon_linear_tangent.html" class="md-nav__link">
+        SSTO Lunar Ascent with Linear Tangent Guidance
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssto_moon_polynomial_controls/ssto_moon_polynomial_controls.html" class="md-nav__link">
+        SSTO Lunar Ascent with Polynomial Controls
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../water_rocket/water_rocket.html" class="md-nav__link">
+        Water Rocket
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        Feature Reference
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Feature Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Feature Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_1" type="checkbox" id="__nav_5_1" >
+      
+      <label class="md-nav__link" for="__nav_5_1">
+        Phases
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Phases" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_1">
+          <span class="md-nav__icon md-icon"></span>
+          Phases
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/phases/phases.html" class="md-nav__link">
+        Phases of a Trajectory
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/phases/segments.html" class="md-nav__link">
+        Segments
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/phases/variables.html" class="md-nav__link">
+        Variables
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/phases/constraints.html" class="md-nav__link">
+        Constraints
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/phases/objective.html" class="md-nav__link">
+        Objective
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/phases/timeseries.html" class="md-nav__link">
+        Timeseries Outputs
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_2" type="checkbox" id="__nav_5_2" >
+      
+      <label class="md-nav__link" for="__nav_5_2">
+        Trajectories
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Trajectories" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_2">
+          <span class="md-nav__icon md-icon"></span>
+          Trajectories
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/trajectories/trajectories.html" class="md-nav__link">
+        Organizing Phases into Trajectories
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/exploiting_sparsity.html" class="md-nav__link">
+        Exploiting Sparsity for Faster Derivative Calculation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/plotting.html" class="md-nav__link">
+        Plotting Timeseries
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        Frequently Asked Questions
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Frequently Asked Questions" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Frequently Asked Questions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/add_ode_output_to_timeseries.html" class="md-nav__link">
+        How do I add an ODE output to the timeseries outputs?
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/connect_scalar_parameters_to_ode.html" class="md-nav__link">
+        How do I connect a scalar input to the ODE?
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/upstream_analysis.html" class="md-nav__link">
+        How do connect the outputs of an upstream analysis as inputs to Dymos?
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/downstream_analysis.html" class="md-nav__link">
+        How do connect the outputs of Dymos to a downstream analysis?
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/tandem_phases.html" class="md-nav__link">
+        How do I run two phases parallel-in-time?
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/use_partial_coloring.html" class="md-nav__link">
+        How can I more efficiently use finite-differenced components in the ODE?
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/debugging.html" class="md-nav__link">
+        How can I debug models when things go wrong?
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      <label class="md-nav__link" for="__nav_7">
+        Dymos API Reference
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Dymos API Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Dymos API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/run_problem.html" class="md-nav__link">
+        The Dymos run_problem function
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/phase_api.html" class="md-nav__link">
+        The Phase API
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/trajectory_api.html" class="md-nav__link">
+        The Trajectory API
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      <label class="md-nav__link" for="__nav_8">
+        Whats New
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Whats New" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Whats New
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release_notes/version_0.16.0.html" class="md-nav__link">
+        dymos 0.16.0
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release_notes/version_0.17.0.html" class="md-nav__link">
+        dymos 0.17.0
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      <label class="md-nav__link" for="__nav_9">
+        Contributing
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Contributing" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          Contributing
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/contributing.html" class="md-nav__link">
+        Contributing to Dymos
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="the-brachistochrone-with-externally-sourced-initial-state-values">The Brachistochrone with Externally-Sourced initial state values<a class="headerlink" href="#the-brachistochrone-with-externally-sourced-initial-state-values" title="Permanent link">&para;</a></h1>
+<div class="admonition info">
+<p class="admonition-title">Things you'll learn through this example</p>
+<ul>
+<li>How to link phase state boundary values to an externally provided value.</li>
+</ul>
+</div>
+<p>This is another modification of the brachistochrone in which the target initial value of a state is provided by an external source (an IndepVarComp in this case).</p>
+<p>Rather than the external value being directly connected to the phase, the values are "linked" via constraint.
+This is exactly how phase linkages in trajectories work as well, but the trajectory hides some of the implementation.</p>
+<p>The following script fully defines the brachistochrone problem with Dymos and solves it.
+A new <code>IndepVarComp</code> is added before the trajectory which provides <code>x0</code>.
+An ExecComp then computes the error between <code>x0_target</code> (taken from the IndepVarComp) and <code>x0_actual</code> (taken from the phase timeseries output).
+The result of this calculation (<code>x0_error</code>) is then constrained as a normal OpenMDAO constraint.</p>
+<div class="tabbed-set" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">script</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">openmdao.api</span> <span class="k">as</span> <span class="nn">om</span>
+<span class="kn">from</span> <span class="nn">openmdao.utils.assert_utils</span> <span class="kn">import</span> <span class="n">assert_near_equal</span>
+<span class="kn">import</span> <span class="nn">dymos</span> <span class="k">as</span> <span class="nn">dm</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">switch_backend</span><span class="p">(</span><span class="s1">&#39;Agg&#39;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">dymos.examples.brachistochrone.brachistochrone_ode</span> <span class="kn">import</span> <span class="n">BrachistochroneODE</span>
+
+<span class="c1">#</span>
+<span class="c1"># Define the OpenMDAO problem</span>
+<span class="c1">#</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">om</span><span class="o">.</span><span class="n">Group</span><span class="p">())</span>
+
+<span class="c1"># Instantiate the transcription so we can get the number of nodes from it while</span>
+<span class="c1"># building the problem.</span>
+<span class="n">tx</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">GaussLobatto</span><span class="p">(</span><span class="n">num_segments</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># Add an indep var comp to provide the external control values</span>
+<span class="n">ivc</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">add_subsystem</span><span class="p">(</span><span class="s1">&#39;states_ivc&#39;</span><span class="p">,</span> <span class="n">om</span><span class="o">.</span><span class="n">IndepVarComp</span><span class="p">(),</span> <span class="n">promotes_outputs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">])</span>
+
+<span class="c1"># Add the output to provide the values of theta at the control input nodes of the transcription.</span>
+<span class="n">ivc</span><span class="o">.</span><span class="n">add_output</span><span class="p">(</span><span class="s1">&#39;x0&#39;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
+
+<span class="c1"># Connect x0 to the state error component so we can constrain the given value of x0</span>
+<span class="c1"># to be equal to the value chosen in the phase.</span>
+<span class="n">p</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;x0&#39;</span><span class="p">,</span> <span class="s1">&#39;state_error_comp.x0_target&#39;</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.states:x&#39;</span><span class="p">,</span> <span class="s1">&#39;state_error_comp.x0_actual&#39;</span><span class="p">,</span> <span class="n">src_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c1">#</span>
+<span class="c1"># Define a Trajectory object</span>
+<span class="c1">#</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">Trajectory</span><span class="p">()</span>
+
+<span class="n">p</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">add_subsystem</span><span class="p">(</span><span class="s1">&#39;traj&#39;</span><span class="p">,</span> <span class="n">subsys</span><span class="o">=</span><span class="n">traj</span><span class="p">)</span>
+
+<span class="n">p</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">add_subsystem</span><span class="p">(</span><span class="s1">&#39;state_error_comp&#39;</span><span class="p">,</span>
+                      <span class="n">om</span><span class="o">.</span><span class="n">ExecComp</span><span class="p">(</span><span class="s1">&#39;x0_error = x0_target - x0_actual&#39;</span><span class="p">,</span>
+                                  <span class="n">x0_error</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="s1">&#39;m&#39;</span><span class="p">},</span>
+                                  <span class="n">x0_target</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="s1">&#39;m&#39;</span><span class="p">},</span>
+                                  <span class="n">x0_actual</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="s1">&#39;m&#39;</span><span class="p">}))</span>
+
+<span class="n">p</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">add_constraint</span><span class="p">(</span><span class="s1">&#39;state_error_comp.x0_error&#39;</span><span class="p">,</span> <span class="n">equals</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+
+<span class="c1">#</span>
+<span class="c1"># Define a Dymos Phase object with GaussLobatto Transcription</span>
+<span class="c1">#</span>
+<span class="n">phase</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">Phase</span><span class="p">(</span><span class="n">ode_class</span><span class="o">=</span><span class="n">BrachistochroneODE</span><span class="p">,</span>
+                 <span class="n">transcription</span><span class="o">=</span><span class="n">tx</span><span class="p">)</span>
+
+<span class="n">traj</span><span class="o">.</span><span class="n">add_phase</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;phase0&#39;</span><span class="p">,</span> <span class="n">phase</span><span class="o">=</span><span class="n">phase</span><span class="p">)</span>
+
+<span class="c1">#</span>
+<span class="c1"># Set the time options</span>
+<span class="c1"># Time has no targets in our ODE.</span>
+<span class="c1"># We fix the initial time so that the it is not a design variable in the optimization.</span>
+<span class="c1"># The duration of the phase is allowed to be optimized, but is bounded on [0.5, 10].</span>
+<span class="c1">#</span>
+<span class="n">phase</span><span class="o">.</span><span class="n">set_time_options</span><span class="p">(</span><span class="n">fix_initial</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">duration_bounds</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+
+<span class="c1">#</span>
+<span class="c1"># Set the time options</span>
+<span class="c1"># Initial values of positions and velocity are all fixed.</span>
+<span class="c1"># The final value of position are fixed, but the final velocity is a free variable.</span>
+<span class="c1"># The equations of motion are not functions of position, so &#39;x&#39; and &#39;y&#39; have no targets.</span>
+<span class="c1"># The rate source points to the output in the ODE which provides the time derivative of the</span>
+<span class="c1"># given state.</span>
+<span class="n">phase</span><span class="o">.</span><span class="n">add_state</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">fix_initial</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fix_final</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">rate_source</span><span class="o">=</span><span class="s1">&#39;xdot&#39;</span><span class="p">)</span>
+<span class="n">phase</span><span class="o">.</span><span class="n">add_state</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">fix_initial</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fix_final</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">rate_source</span><span class="o">=</span><span class="s1">&#39;ydot&#39;</span><span class="p">)</span>
+<span class="n">phase</span><span class="o">.</span><span class="n">add_state</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="n">fix_initial</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fix_final</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;m/s&#39;</span><span class="p">,</span>
+                <span class="n">rate_source</span><span class="o">=</span><span class="s1">&#39;vdot&#39;</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">])</span>
+
+<span class="c1"># Define theta as a control.</span>
+<span class="c1"># Use opt=False to allow it to be connected to an external source.</span>
+<span class="c1"># Arguments lower and upper are no longer valid for an input control.</span>
+<span class="n">phase</span><span class="o">.</span><span class="n">add_control</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;theta&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;rad&#39;</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">])</span>
+
+<span class="c1"># Minimize final time.</span>
+<span class="n">phase</span><span class="o">.</span><span class="n">add_objective</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;final&#39;</span><span class="p">)</span>
+
+<span class="c1"># Set the driver.</span>
+<span class="n">p</span><span class="o">.</span><span class="n">driver</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">ScipyOptimizeDriver</span><span class="p">()</span>
+
+<span class="c1"># Allow OpenMDAO to automatically determine our sparsity pattern.</span>
+<span class="c1"># Doing so can significant speed up the execution of Dymos.</span>
+<span class="n">p</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">declare_coloring</span><span class="p">()</span>
+
+<span class="c1"># Setup the problem</span>
+<span class="n">p</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Now that the OpenMDAO problem is setup, we can set the values of the states.</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;x0&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
+
+<span class="c1"># Here we&#39;re intentially setting the intiial x value to something other than zero, just</span>
+<span class="c1"># to demonstrate that the optimizer brings it back in line with the value of x0 set above.</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.states:x&#39;</span><span class="p">,</span>
+          <span class="n">phase</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">ys</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">nodes</span><span class="o">=</span><span class="s1">&#39;state_input&#39;</span><span class="p">),</span>
+          <span class="n">units</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
+
+<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.states:y&#39;</span><span class="p">,</span>
+          <span class="n">phase</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">ys</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">nodes</span><span class="o">=</span><span class="s1">&#39;state_input&#39;</span><span class="p">),</span>
+          <span class="n">units</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
+
+<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.states:v&#39;</span><span class="p">,</span>
+          <span class="n">phase</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">ys</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">nodes</span><span class="o">=</span><span class="s1">&#39;state_input&#39;</span><span class="p">),</span>
+          <span class="n">units</span><span class="o">=</span><span class="s1">&#39;m/s&#39;</span><span class="p">)</span>
+
+<span class="n">p</span><span class="o">.</span><span class="n">set_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.controls:theta&#39;</span><span class="p">,</span>
+          <span class="n">phase</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">ys</span><span class="o">=</span><span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span> <span class="n">nodes</span><span class="o">=</span><span class="s1">&#39;control_input&#39;</span><span class="p">),</span>
+          <span class="n">units</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">)</span>
+
+<span class="c1"># Run the driver to solve the problem</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">run_problem</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">make_plots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Test the results</span>
+
+
+<span class="c1"># Check the validity of our results by using scipy.integrate.solve_ivp to</span>
+<span class="c1"># integrate the solution.</span>
+<span class="n">sim_out</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">simulate</span><span class="p">()</span>
+
+<span class="c1"># Plot the results</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.states:x&#39;</span><span class="p">),</span>
+             <span class="n">p</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.states:y&#39;</span><span class="p">),</span>
+             <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;solution&#39;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim_out</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.states:x&#39;</span><span class="p">),</span>
+             <span class="n">sim_out</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.states:y&#39;</span><span class="p">),</span>
+             <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;simulation&#39;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x (m)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y (m/s)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.time&#39;</span><span class="p">),</span>
+             <span class="n">p</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.controls:theta&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">),</span>
+             <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;solution&#39;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim_out</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.time&#39;</span><span class="p">),</span>
+             <span class="n">sim_out</span><span class="o">.</span><span class="n">get_val</span><span class="p">(</span><span class="s1">&#39;traj.phase0.timeseries.controls:theta&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">),</span>
+             <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;simulation&#39;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;time (s)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta$ (deg)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">output</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>--- Logging error ---
+--- Logging error ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+ValueError: I/O operation on closed file.
+ValueError: I/O operation on closed file.
+Call stack:
+Call stack:
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 67, in run_problem
+    problem.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 67, in run_problem
+    problem.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+Message: &#39;checking out_of_order&#39;
+Arguments: ()
+Message: &#39;checking out_of_order&#39;
+Arguments: ()
+INFO: checking out_of_order
+--- Logging error ---
+--- Logging error ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+ValueError: I/O operation on closed file.
+ValueError: I/O operation on closed file.
+Call stack:
+Call stack:
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 67, in run_problem
+    problem.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 67, in run_problem
+    problem.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+Message: &#39;checking system&#39;
+Arguments: ()
+Message: &#39;checking system&#39;
+Arguments: ()
+INFO: checking system
+--- Logging error ---
+--- Logging error ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+ValueError: I/O operation on closed file.
+ValueError: I/O operation on closed file.
+Call stack:
+Call stack:
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 67, in run_problem
+    problem.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 67, in run_problem
+    problem.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+Message: &#39;checking solvers&#39;
+Arguments: ()
+Message: &#39;checking solvers&#39;
+Arguments: ()
+INFO: checking solvers
+--- Logging error ---
+--- Logging error ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+ValueError: I/O operation on closed file.
+ValueError: I/O operation on closed file.
+Call stack:
+Call stack:
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 67, in run_problem
+    problem.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 67, in run_problem
+    problem.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+Message: &#39;checking dup_inputs&#39;
+Arguments: ()
+Message: &#39;checking dup_inputs&#39;
+Arguments: ()
+INFO: checking dup_inputs
+--- Logging error ---
+--- Logging error ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+ValueError: I/O operation on closed file.
+ValueError: I/O operation on closed file.
+Call stack:
+Call stack:
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 67, in run_problem
+    problem.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 67, in run_problem
+    problem.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+Message: &#39;checking missing_recorders&#39;
+Arguments: ()
+Message: &#39;checking missing_recorders&#39;
+Arguments: ()
+INFO: checking missing_recorders
+--- Logging error ---
+--- Logging error ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+ValueError: I/O operation on closed file.
+ValueError: I/O operation on closed file.
+Call stack:
+Call stack:
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 67, in run_problem
+    problem.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 67, in run_problem
+    problem.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1898, in check_config
+    _all_checks[c](self, logger)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1898, in check_config
+    _all_checks[c](self, logger)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/error_checking/check_config.py&quot;, line 503, in _check_missing_recorders
+    logger.warning(msg)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/error_checking/check_config.py&quot;, line 503, in _check_missing_recorders
+    logger.warning(msg)
+Message: &#39;The Problem has no recorder of any kind attached&#39;
+Arguments: ()
+Message: &#39;The Problem has no recorder of any kind attached&#39;
+Arguments: ()
+WARNING: The Problem has no recorder of any kind attached
+--- Logging error ---
+--- Logging error ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+ValueError: I/O operation on closed file.
+ValueError: I/O operation on closed file.
+Call stack:
+Call stack:
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 67, in run_problem
+    problem.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 67, in run_problem
+    problem.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+Message: &#39;checking comp_has_no_outputs&#39;
+Arguments: ()
+Message: &#39;checking comp_has_no_outputs&#39;
+Arguments: ()
+INFO: checking comp_has_no_outputs
+--- Logging error ---
+--- Logging error ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+ValueError: I/O operation on closed file.
+ValueError: I/O operation on closed file.
+Call stack:
+Call stack:
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 67, in run_problem
+    problem.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 67, in run_problem
+    problem.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+Message: &#39;checking auto_ivc_warnings&#39;
+Arguments: ()
+Message: &#39;checking auto_ivc_warnings&#39;
+Arguments: ()
+INFO: checking auto_ivc_warnings
+--- Logging error ---
+--- Logging error ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+ValueError: I/O operation on closed file.
+ValueError: I/O operation on closed file.
+Call stack:
+Call stack:
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 73, in run_problem
+    problem.run_driver()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 73, in run_problem
+    problem.run_driver()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 659, in run_driver
+    self.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 659, in run_driver
+    self.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+Message: &#39;checking out_of_order&#39;
+Arguments: ()
+Message: &#39;checking out_of_order&#39;
+Arguments: ()
+INFO: checking out_of_order
+--- Logging error ---
+--- Logging error ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+ValueError: I/O operation on closed file.
+ValueError: I/O operation on closed file.
+Call stack:
+Call stack:
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 73, in run_problem
+    problem.run_driver()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 73, in run_problem
+    problem.run_driver()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 659, in run_driver
+    self.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 659, in run_driver
+    self.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+Message: &#39;checking system&#39;
+Arguments: ()
+Message: &#39;checking system&#39;
+Arguments: ()
+INFO: checking system
+--- Logging error ---
+--- Logging error ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+ValueError: I/O operation on closed file.
+ValueError: I/O operation on closed file.
+Call stack:
+Call stack:
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 73, in run_problem
+    problem.run_driver()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 73, in run_problem
+    problem.run_driver()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 659, in run_driver
+    self.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 659, in run_driver
+    self.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+Message: &#39;checking solvers&#39;
+Arguments: ()
+Message: &#39;checking solvers&#39;
+Arguments: ()
+INFO: checking solvers
+--- Logging error ---
+--- Logging error ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+ValueError: I/O operation on closed file.
+ValueError: I/O operation on closed file.
+Call stack:
+Call stack:
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 73, in run_problem
+    problem.run_driver()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 73, in run_problem
+    problem.run_driver()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 659, in run_driver
+    self.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 659, in run_driver
+    self.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+Message: &#39;checking dup_inputs&#39;
+Arguments: ()
+Message: &#39;checking dup_inputs&#39;
+Arguments: ()
+INFO: checking dup_inputs
+--- Logging error ---
+--- Logging error ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+ValueError: I/O operation on closed file.
+ValueError: I/O operation on closed file.
+Call stack:
+Call stack:
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 73, in run_problem
+    problem.run_driver()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 73, in run_problem
+    problem.run_driver()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 659, in run_driver
+    self.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 659, in run_driver
+    self.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+Message: &#39;checking missing_recorders&#39;
+Arguments: ()
+Message: &#39;checking missing_recorders&#39;
+Arguments: ()
+INFO: checking missing_recorders
+--- Logging error ---
+--- Logging error ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+ValueError: I/O operation on closed file.
+ValueError: I/O operation on closed file.
+Call stack:
+Call stack:
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 73, in run_problem
+    problem.run_driver()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 73, in run_problem
+    problem.run_driver()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 659, in run_driver
+    self.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 659, in run_driver
+    self.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1898, in check_config
+    _all_checks[c](self, logger)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1898, in check_config
+    _all_checks[c](self, logger)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/error_checking/check_config.py&quot;, line 503, in _check_missing_recorders
+    logger.warning(msg)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/error_checking/check_config.py&quot;, line 503, in _check_missing_recorders
+    logger.warning(msg)
+Message: &#39;The Problem has no recorder of any kind attached&#39;
+Arguments: ()
+Message: &#39;The Problem has no recorder of any kind attached&#39;
+Arguments: ()
+WARNING: The Problem has no recorder of any kind attached
+--- Logging error ---
+--- Logging error ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+ValueError: I/O operation on closed file.
+ValueError: I/O operation on closed file.
+Call stack:
+Call stack:
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 73, in run_problem
+    problem.run_driver()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 73, in run_problem
+    problem.run_driver()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 659, in run_driver
+    self.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 659, in run_driver
+    self.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+Message: &#39;checking comp_has_no_outputs&#39;
+Arguments: ()
+Message: &#39;checking comp_has_no_outputs&#39;
+Arguments: ()
+INFO: checking comp_has_no_outputs
+--- Logging error ---
+--- Logging error ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/logging/__init__.py&quot;, line 1084, in emit
+    stream.write(msg + self.terminator)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 63, in write
+    f.write(text)
+ValueError: I/O operation on closed file.
+ValueError: I/O operation on closed file.
+Call stack:
+Call stack:
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/bin/testflo&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 213, in main
+    retval = run_pipeline(tests, pipeline)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/main.py&quot;, line 77, in run_pipeline
+    for result in iters[-1]:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/summary.py&quot;, line 30, in get_iter
+    for test in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/printer.py&quot;, line 28, in get_iter
+    for result in input_iter:
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/runner.py&quot;, line 58, in get_iter
+    result = test.run(self._queue)
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 317, in run
+    status, expected2 = _try_call(getattr(parent, funcname))
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/miniconda/envs/PY3.8/lib/python3.8/site-packages/testflo/test.py&quot;, line 425, in _try_call
+    func()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/utils/doc_utils.py&quot;, line 119, in wrapped
+    method(self)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/examples/brachistochrone/doc/test_doc_brachistochrone_upstream_state.py&quot;, line 125, in test_brachistochrone_upstream_state
+    dm.run_problem(p, make_plots=True)
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 73, in run_problem
+    problem.run_driver()
+  File &quot;/home/travis/build/OpenMDAO/dymos/dymos/run_problem.py&quot;, line 73, in run_problem
+    problem.run_driver()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 659, in run_driver
+    self.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 659, in run_driver
+    self.final_setup()
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 998, in final_setup
+    self.check_config(logger, checks=checks)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+  File &quot;/home/travis/build/OpenMDAO/dymos/OpenMDAO/openmdao/core/problem.py&quot;, line 1897, in check_config
+    logger.info(&#39;checking %s&#39; % c)
+Message: &#39;checking auto_ivc_warnings&#39;
+Arguments: ()
+Message: &#39;checking auto_ivc_warnings&#39;
+Arguments: ()
+INFO: checking auto_ivc_warnings
+Full total jacobian was computed 3 times, taking 0.107166 seconds.
+Total jacobian shape: (41, 51) 
+
+
+Jacobian shape: (41, 51)  (19.56% nonzero)
+FWD solves: 13   REV solves: 0
+Total colors vs. total size: 13 vs 51  (74.5% improvement)
+
+Sparsity computed using tolerance: 1e-25
+Time to compute sparsity: 0.107166 sec.
+Time to compute coloring: 0.001886 sec.
+Optimization terminated successfully.    (Exit mode 0)
+            Current function value: 1.8016061502983167
+            Iterations: 63
+            Function evaluations: 70
+            Gradient evaluations: 63
+Optimization Complete
+-----------------------------------
+problem
+    final
+
+Simulating trajectory traj
+Done simulating trajectory traj
+</code></pre></div>
+</div>
+<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">plot 1</label><div class="tabbed-content">
+<p><img alt="" width="640" height="480" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABLAAAAHCCAYAAAD/8zCiAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjMuNCwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8QVMy6AAAACXBIWXMAAA9hAAAPYQGoP6dpAACm8klEQVR4nOzdeZxN9R/H8dedOzvGzgwmZEn2NdmpjGhRExUqW0WWMBhJapR1ZExZKhJ+RAtDm2pkF7KvFWWpLJNIBjNmxp37++PLMFmy3JlzZ+b9fDw87j3nfu+5n/ncOebcz/0uNqfT6URERERERERERMRNeVgdgIiIiIiIiIiIyLWogCUiIiIiIiIiIm5NBSwREREREREREXFrKmCJiIiIiIiIiIhbUwFLRERERERERETcmgpYIiIiIiIiIiLi1lTAEhERERERERERt6YCloiIiIiIiIiIuDUVsERERERERERExK2pgCUiIiIiIiIiIm5NBSwREREREREREXFrKmCJiIiIiIiIiIhbUwFLRERERERERETcmqfVAVghNTWVw4cPkydPHmw2m9XhiIiIiBtyOp2cOnWKYsWK4eGh7/yuRddWIiIi8l9u9doqRxawDh8+THBwsNVhiIiISBbwxx9/UKJECavDcGu6thIREZHrdbPXVjmygJUnTx7AJC0gIMDlx09JSSE2NpaQkBC8vLxcfny5OuXeOsq9tZR/6yj31sno3MfHxxMcHJx23SBXp2urzKE8GMqDoTwYyoOhPBjKw0XumItbvbbKkQWsC13bAwICMuwiy9/fn4CAALf5RckplHvrKPfWUv6to9xbJ7NyryFx/03XVplDeTCUB0N5MJQHQ3kwlIeL3DkXN3ttpQkdRERERERERETEramAJSIiIiIiIiIibk0FLBERERERERERcWs5cg4sERGRG+FwOEhJSbniYykpKXh6enL27FkcDkcmR5az3Wruvby8sNvtGRCZXM21zqVr0XlmuHMevL29b2pJdBERkeulApaIiMhVOJ1O4uLi+Oeff67ZJjAwkD/++EOTfWcyV+Q+X758BAYG6r3LYNdzLv3X83WeuXcePDw8KF26NN7e3laHIiIi2ZQKWCIiIldx4QN3kSJF8Pf3v+IHxtTUVE6fPk3u3LnV+yCT3UrunU4nCQkJHD16FICgoKCMCFHOu55z6Vp0nhnumofU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m7THdS6JiFgnMRF694aWLSEuzkbFEvGspy7htjcvL14BREfnmI4yKmBlANuCBdSNHE0V53YAtlPVPHDokFn+UkUsERHJIEeOHKFdu3Z06dKFn376ieXLlxMaGorz/Oo1/zZz5kwKFSrE+vXr6d27Ny+88AJt27alfv36bN68mRYtWvD000+TkJBw0zGdOnWKjh07smrVKtatW0e5cuVo1aoVp06Z3sobNmwAYPr06Rw5ciRt+9/eeustxo0bx5tvvsn27dsJCQmhffv2/PLLL+naDRkyhAEDBrB161bKly9Pu3btOHfu3E3HLzmTu55LTz75JCtWrHDpudSiRQsefvhhnUsiIhbbuhVq1YKJE812796wcU8A1ecPheLF0zcuUQLmzYPQ0EyP0yoaQuhqDgf2sDAAqrGNtdRnG9V4ko/N0pc2G/TtC61b55gqqYhIduB0mjU5/i01Fc6cMf+le2TQ10L+/he/ZPsvR44c4dy5c4SGhlKyZEkAqlSpctX21apV45VXXgFg8ODBjB49mkKFCvHcc88B8Oqrr/LOO++wfft27r777puK/5577km3/d5775E/f35WrFjBgw8+SOHChQHIly8fgYGBVz3Om2++yaBBg3jyyScBGD16NEuWLOGtt95i8uTJae0GDBjAAw88AMCwYcOoVKkSv/76KxUqVLip+MW1rnYuXYurzrPscC7Vrl2bgIAAPDw8XHYujRkzhmXLlhEdHc2kSZPS2ulcEhHJHKmp8NZb8NJLkJwMgYEwfTrcf//5BqGhpoawapWZsD0oKEdOUaQClqutWoXt0CEAqrMVgC3UuPi40wl//GF+8Zo2zfz4RETkpiQkwJWnkPEA8mXoa58+DblyXV/batWqce+991KlShVatGhBSEgIbdq0IX/+/FdsX7Vq1bT7drudggULpvuQXrRoUQCOHj160/EfPXqUV199laVLl/Lnn3/icDhISEjg999/v+5jxMfHc/jwYRo0aJBuf926dfn555/T7bv0Zwo6P6np0aNH9aHbTVz9XLoW15xn2eFcGjx4MN9//73Lz6UGDRqwbdu2dPt0LomIZLy4OOjUCb791mw//DBMmwaFCv2rod2e42sIGkLoapcsX1kTMyfBZmpyWWfzHLLMpYiIZC673c7ixYv5+uuvqVixIhMmTOCOO+5g//79V2zv5eWVbttms6Xb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+bxXr17WAw88YNfm/vvvt5544gkHRe14jrhubNCggTV+/PjM53PnzrVKly7tqBALRW7zsGbNGguwfvvtt5tu0xOPh2XLllk2m806duxY5rqieDxc78bzfXbc9fxwvZzkITvucH64Xk7y4K7nhxvl5Zhwl3OEemA5SEpKCjExMXTp0sVufZcuXdi4caOTovJcFy9eBKBs2bJOjsRzPPfcc3Tv3p377rvP2aF4jOXLl9OsWTN69uxJhQoVCAsL4z//+Y+zw/IY7dq147vvvuPgwYMA7Ny5k/Xr19OtWzcnR+ZZjh49ys8//2z3+evv70+HDh30+euC8nK9tGnTpizt77//frZt20Zqauot27jqMeCI68b09HQuXbqU5Vrn999/p3r16oSEhPDggw9m6YHhSvKTh7CwMCpVqsS9997LmjVr7H7nicfDnDlzuO+++6hevbrd+qJ0POSFO54fHMEdzg/54U7nB0dxl3OEClgOcv78edLS0qhYsaLd+ooVK/Lzzz87KSrPZFkWw4cPp127djRq1MjZ4XiEhQsXsn37diZOnOjsUDzKkSNHmDVrFnXq1OHbb79l8ODBvPDCC3z66afODs0jvPzyy/Tp04fQ0FB8fX0JCwsjIiKCPn36ODs0j5LxGavP36IhL9dLP//8c7btr169yvnz52/ZxlWPAUdcN/7rX/8iMTGRXr16Za4LDQ3l448/Zvny5SxYsIBixYrRtm1bDh065ND4HSUveahUqRKzZ89myZIlLF26lHr16nHvvfeydu3azDaedjzExcWxcuVKnnnmGbv1Re14yAt3PD84gjucH/LCHc8PjuBO5wgfZwfgbmw2m91zy7KyrJOCNXToUHbt2sX69eudHYpHOHnyJMOGDWP16tWufb+0G0pPT6dZs2a8+eabgPm2ae/evcyaNYunnnrKydG5v0WLFvHZZ58xf/58GjZsyI4dO4iIiKBy5cr079/f2eF5HH3+Fi25/ffKrv2N64viMZDXmBcsWMC4ceP48ssvqVChQub6Vq1a0apVq8znbdu2pUmTJkyfPp13333XcYE7WG7yUK9ePerVq5f5vHXr1pw8eZJ33nmHe+65J0/bdBV5jfnjjz+mTJkyPProo3bri+rxkFvuen7IK3c7P+SGO58f8sOdzhHqgeUg5cuXx9vbO0vlNj4+PkuFVwrO888/z/Lly1mzZg0hISHODscjxMTEEB8fT9OmTfHx8cHHx4fo6GjeffddfHx8SEtLc3aIbqtSpUo0aNDAbl39+vU1cUQhGTlyJKNHj+aJJ57gzjvvJDw8nBdffFE9EQtZcHAwgD5/i4i8XC8FBwdn297Hx4dy5crdso2rHgP5uW5ctGgRAwcO5IsvvrjtbfteXl40b97cZb9Nd9T1c6tWrez20ZOOB8uy+OijjwgPD8fPz++WbV39eMgLdzw/5Ic7nR8cpaifH/LL3c4RKmA5iJ+fH02bNiUyMtJufWRkJG3atHFSVJ7DsiyGDh3K0qVL+f7776lZs6azQ/IY9957L7t372bHjh2ZS7Nmzejbty87duzA29vb2SG6rbZt23LgwAG7dQcPHsxyb7sUjKSkJLy87D9Gvb29SU9Pd1JEnqlmzZoEBwfbff6mpKQQHR2tz18XlJfrpdatW2dpv3r1apo1a4avr+8t27jqMZDX68YFCxbw9NNPM3/+fLp3737b97Esix07dlCpUqV8x1wQHHX9HBsba7ePnnI8gJmJ+6effmLgwIG3fR9XPx7ywh3PD3nlbucHRynq54f8crtzROGOGe/eFi5caPn6+lpz5syx9u3bZ0VERFglSpSwG+lfCsbf/vY3q3Tp0lZUVJQVFxeXuSQlJTk7NI+kWQgLxw8//GD5+PhY//znP61Dhw5Zn3/+uRUQEGB99tlnzg7NI/Tv39+qUqWK9fXXX1tHjx61li5dapUvX94aNWqUs0NzO5cuXbJiY2Ot2NhYC7CmTJlixcbGWsePH7csy7ImTZpklS5d2lq6dKm1e/duq0+fPlalSpWshIQEJ0cu2bnd9dLo0aOt8PDwzPZHjhyxAgICrBdffNHat2+fNWfOHMvX19davHhxZpsNGzZY3t7e1qRJk6z9+/dbkyZNsnx8fKzNmzcX+v7lVG7zMH/+fMvHx8d677337K51Lly4kNlm3Lhx1qpVq6zDhw9bsbGx1oABAywfHx9ry5Ythb5/OZXbPPz73/+2li1bZh08eNDas2ePNXr0aAuwlixZktnGE46HDP369bNatmyZ7TaL4vFwu/O9p5wfcpsHdz0/5DYP7np+sKzc5yKDu50jVMBysPfee8+qXr265efnZzVp0sSKjo52dkgeAch2mTt3rrND80gqYBWer776ymrUqJHl7+9vhYaGWrNnz3Z2SB4jISHBGjZsmFWtWjWrWLFiVq1atawxY8ZYycnJzg7N7WRMi33j0r9/f8uyLCs9Pd0aO3asFRwcbPn7+1v33HOPtXv3bucGLbd0q+ul/v37Wx06dLBrHxUVZYWFhVl+fn5WjRo1rFmzZmXZ5n//+1+rXr16lq+vrxUaGmr3B4uryk0eOnTocMv/B5ZlWREREVa1atUsPz8/KygoyOrSpYu1cePGQtyjvMlNHt566y2rdu3aVrFixaw77rjDateunfXNN99k2aa7Hw+WZVkXLlywihcvftPP/qJ4PNzufO8p54fc5sFdzw+5zYM7nx/y8n/DHc8RNsv6Y5Q7ERERERERERERF6QxsERERERERERExKWpgCUiIiIiIiIiIi5NBSwREREREREREXFpKmCJiIiIiIiIiIhLUwFLRERERERERERcmgpYIiIiIiIiIiLi0lTAEhERERERERERl6YCloiIiIiIiIiIuDQVsERERERERERExKWpgCUiHm3OnDl06dIlX9uIj48nKCiI06dPOygqERERkcIVFRWFzWbjwoULTnn/77//ntDQUNLT02/b9uuvvyYsLCxHbUXEfaiAJSIeKzk5mddff53XXnstX9upUKEC4eHhjB071kGRiYiIiBScjh07EhERYbeuTZs2xMXFUbp0aafENGrUKMaMGYOX1+3/RH3wwQex2WzMnz+/ECITEVehApaIeKwlS5ZQsmRJ2rdvn+9tDRgwgM8//5zffvvNAZGJiIiIFC4/Pz+Cg4Ox2WyF/t4bN27k0KFD9OzZM8evGTBgANOnTy/AqETE1aiAJSJF3rlz5wgODubNN9/MXLdlyxb8/PxYvXr1TV+3cOFCHn74Ybt1Tz/9NI8++ihvvvkmFStWpEyZMowfP56rV68ycuRIypYtS0hICB999JHd6+68806Cg4NZtmyZY3dORERExIGefvppoqOjmTZtGjabDZvNxrFjx7LcQvjxxx9TpkwZvv76a+rVq0dAQACPP/44iYmJfPLJJ9SoUYM77riD559/nrS0tMztp6SkMGrUKKpUqUKJEiVo2bIlUVFRt4xp4cKFdOnShWLFimWu27lzJ506daJUqVIEBgbStGlTtm3blvn7hx9+mB9++IEjR444ND8i4rpUwBKRIi8oKIiPPvqIcePGsW3bNn7//Xf69evHkCFDbjm+1bp162jWrFmW9d9//z1nzpxh7dq1TJkyhXHjxvHggw9yxx13sGXLFgYPHszgwYM5efKk3etatGjBunXrHL5/IiIiIo4ybdo0WrduzaBBg4iLiyMuLo6qVatm2zYpKYl3332XhQsXsmrVKqKioujRowcrVqxgxYoVzJs3j9mzZ7N48eLM1wwYMIANGzawcOFCdu3aRc+ePXnggQc4dOjQTWNau3Ztlmuyvn37EhISwtatW4mJiWH06NH4+vpm/r569epUqFBB114iHsTH2QGIiDhCt27dGDRoEH379qV58+YUK1aMSZMm3bT9hQsXuHDhApUrV87yu7Jly/Luu+/i5eVFvXr1mDx5MklJSbz66qsAvPLKK0yaNIkNGzbwxBNPZL6uSpUqxMbGOn7nRERERBykdOnS+Pn5ERAQQHBw8C3bpqamMmvWLGrXrg3A448/zrx58zh79iwlS5akQYMGdOrUiTVr1tC7d28OHz7MggULOHXqVOY11ogRI1i1ahVz58616y1/vWPHjmW5Jjtx4gQjR44kNDQUgDp16mR5XZUqVTh27FhuUyAiRZQKWCLiNt555x0aNWrEF198wbZt2+y6od/o8uXLANm2adiwod0AohUrVqRRo0aZz729vSlXrhzx8fF2rytevDhJSUn53Q0RERERlxAQEJBZvAJzTVSjRg1Klixpty7jmmj79u1YlkXdunXttpOcnEy5cuVu+j6XL1/Ock02fPhwnnnmGebNm8d9991Hz5497WIBXXuJeBoVsETEbRw5coQzZ86Qnp7O8ePHueuuu27atly5cthstmwHXb++ezqAzWbLdt2NUzf/+uuvBAUF5WMPRERERFxHbq+J0tPT8fb2JiYmBm9vb7t21xe9blS+fPks12Tjxo3jySef5JtvvmHlypWMHTuWhQsX8thjj2W20bWXiGdRAUtE3EJKSgp9+/ald+/ehIaGMnDgQHbv3k3FihWzbe/n50eDBg3Yt2/fLcfJyo09e/bQsWNHh2xLREREpKD4+fnZDbzuKGFhYaSlpREfH5+rWZ7DwsLYt29flvV169albt26vPjii/Tp04e5c+dmFrCuXLnC4cOHCQsLc1j8IuLaNIi7iLiFMWPGcPHiRd59911GjRpF/fr1GThw4C1fc//997N+/XqHvH9SUhIxMTEOK4aJiIiIFJQaNWqwZcsWjh07xvnz57P0Ks+runXr0rdvX5566imWLl3K0aNH2bp1K2+99RYrVqy46etuvCa7fPkyQ4cOJSoqiuPHj7Nhwwa2bt1K/fr1M9ts3rwZf39/Wrdu7ZDYRcT1qYAlIkVeVFQUU6dOZd68eQQGBuLl5cW8efNYv349s2bNuunrBg0axIoVK7h48WK+Y/jyyy+pVq1arr5tFBEREXGGESNG4O3tTYMGDQgKCuLEiRMO2/bcuXN56qmneOmll6hXrx4PP/wwW7ZsuelMhwD9+vVj3759HDhwADDjjf7yyy889dRT1K1bl169etG1a1fGjx+f+ZoFCxbQt29fAgICHBa7iLg2m2VZlrODEBFxll69ehEWFsYrr7ySr+20aNGCiIgInnzySQdFJiIiIuI5Ro0axcWLF/nggw9u2/bcuXOEhoaybds2atasWQjRiYgrUA8sEfFob7/99i0HFc2J+Ph4Hn/8cfr06eOgqEREREQ8y5gxY6hevXqOxuY6evQoM2fOVPFKxMOoB5aIiIiIiIiIiLg09cASERERERERERGXpgKWiIiIiIiIiIi4NBWwRERERERERETEpamAJSIiIiIiIiIiLk0FLBERERERERERcWkqYImIiIiIiIiIiEtTAUtERERERERERFyaClgiIiIiIiIiIuLSVMASERERERERERGXpgKWiIiIiIiIiIi4NBWwRERERERERETEpamAJSIiIiIiIiIiLk0FLBERERERERERcWkqYImIiIiIiIiIiEv7/8ExM5qcSbiQAAAAAElFTkSuQmCC"/></p>
+</div>
+</div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../assets/javascripts/workers/search.fb4a9340.min.js", "version": {"method": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a1c7c35e.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>
